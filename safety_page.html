@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Flight Infotainment - Flight Info</title>
+    <link rel="stylesheet" href="safety_page.css">
+</head>
+<body>
+
+    <div class="infotainment-container">
+        <header class="screen-header">
+            <span class="system-label">In-Flight Infotainment</span>
+            <h1>Flight Information and Updates</h1>
+        </header>
+
+        <div class="ticker-banner">
+            <div class="ticker-wrapper">
+                <span class="ticker-label">ANNOUNCEMENT:</span>
+                <p class="ticker-text">Passengers are permitted to get out of their seats</p>
+            </div>
+            <button class="safety-btn" onclick="navigateToSafety()" title="Click to open announcement and safety">
+                <span class="star-icon">✦</span>
+            </button>
+            <div class="weather-display">
+                <span class="weather-icon">☀️</span>
+                <span class="temperature">73°F</span>
+            </div>
+        </div>
+
+        <main class="map-container">
+            <p class="map-placeholder-text">Plane over global map and position along path</p>
+        </main>
+
+        <footer class="telemetry-footer">
+            <div class="data-block time-block">
+                <div><strong>ETA:</strong> 2hr 4 min</div>
+                <div><strong>Destination time:</strong> 4:23 PM</div>
+                <div><strong>Local time:</strong> 2:23 PM</div>
+                <div><strong>Departure time:</strong> 1:23 PM</div>
+            </div>
+
+            <div class="data-block stats-block">
+                <div><strong>Altitude:</strong> 35,000 ft</div>
+                <div><strong>Ground Speed:</strong> 540 mph</div>
+            </div>
+
+            <div class="data-block coords-block">
+                <span>Lat: 38.9072° N</span>
+                <span class="divider">|</span>
+                <span>Long: 77.0369° W</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function navigateToSafety() {
+            // Placeholder function for navigation logic to the safety page
+            alert("Navigating to Flight Information Safety and Announcements page...");
+        }
+    </script>
+</body>
+</html>
