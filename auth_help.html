@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In-Flight Infotainment - Auth & Help</title>
+
+  <link rel="stylesheet" href="auth_help.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+ 
+  <!-- type="text/babel" tells Babel to compile this JSX before the browser runs it -->
+  <script type="text/babel">
+    // CMSC 437 - Project 2
+    // Fatou Sonko - User Authentication & Help Communication screens
+    // Note: Some JavaScript patterns (regex validation, array methods)
+    // were carried over from prior experience in CMSC 433
+ 
+ 
+    // ── HomeDashboard ────────────────────────────────────────────────
+    // Placeholder so the "<- Home" button has somewhere to go.
+    // The group will swap this out with the real dashboard on integration.
+    // Receives sessionInfo (from WelcomePage) to greet the passenger by name.
+    const HomeDashboard = ({ sessionInfo, onNavigate }) => {
+      // pull name out of session if it exists
+      const name = sessionInfo && sessionInfo.profile && sessionInfo.profile.name;
+      const greeting = sessionInfo && sessionInfo.session === "guest" ? "Guest" : (name || "Passenger");
+ 
+      return (
+        <div className="home-screen">
+          <div className="home-card">
+            <div className="home-header">
+              <span style={{fontSize:"0.8rem",letterSpacing:"0.1em",opacity:0.7,display:"block",marginBottom:"0.5rem"}}>✈ SkyLine Air</span>
+              <h1 className="home-title">Welcome, {greeting}!</h1>
+              <p className="home-subtitle">What would you like to do?</p>
+            </div>
+ 
+            {/* 2x2 grid of main app sections — only Help Center is wired up here */}
+            <div className="home-grid">
+              {[
+                { icon:"🎬", label:"Entertainment" },
+                { icon:"✈️", label:"Flight Info"   },
+                { icon:"🛍", label:"Shop & Food"   },
+                { icon:"❓", label:"Help Center", dest:"helpCenter" },
+              ].map(({ icon, label, dest }) => (
+                // only navigate if a destination is defined for this tile
+                <button key={label} className="home-tile"
+                  onClick={() => dest && onNavigate(dest)}>
+                  <span className="home-tile-icon">{icon}</span>
+                  <span className="home-tile-label">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    };
+ 
+ 
+    // ── WelcomePage ──────────────────────────────────────────────────
+    // Handles FR 1.1, 1.2, 1.3: guest session, create profile, manage profile,
+    // and saving preferences for the flight session.
+    // Uses a "view" state to switch between sub-screens inside this component.
+    const WelcomePage = ({ onContinue }) => {
+      // tracks which sub-screen to show: landing | createProfile | manageProfile | preferences
+      const [view, setView] = React.useState("landing");
+ 
+      // profile holds all the passenger's preference values
+      const [profile, setProfile] = React.useState({
+        name: "", language: "English", textSize: "Normal", media: "Movies",
+      });
+ 
+      // session is either "guest" or "profile" - set when passenger makes their choice
+      const [session, setSession] = React.useState(null);
+ 
+      // errors object holds validation messages, keyed by field name
+      const [errors, setErrors] = React.useState({});
+ 
+      // dropdown and pill options
+      const languages  = ["English","Spanish","French","German","Mandarin","Arabic"];
+      const textSizes  = ["Small","Normal","Large"];
+      const mediaPrefs = ["Movies","TV Shows","Music","No Preference"];
+ 
+      // validate profile form — only name is required
+      const validateProfile = () => {
+        const e = {};
+        if (!profile.name.trim()) e.name = "Name is required.";
+        setErrors(e);
+        return !Object.keys(e).length; // returns true if no errors
+      };
+ 
+      // guest skips name — go straight to preferences
+      const handleGuest = () => { setSession("guest"); setView("preferences"); };
+ 
+      const handleCreateProfile = () => setView("createProfile");
+      const handleManageProfile = () => setView("manageProfile");
+ 
+      // validate before moving to preferences screen
+      const handleProfileSave = () => {
+        if (!validateProfile()) return;
+        setSession("profile");
+        setView("preferences");
+      };
+ 
+      // called when passenger clicks "Go to Home Dashboard"
+      // passes session info up to App so the dashboard can greet them
+      const handlePreferencesSave = () => {
+        if (onContinue) onContinue({ session, profile });
+      };
+ 
+      // ProfileForm is a shared sub-form used by both Create and Manage Profile screens
+      const ProfileForm = () => (
+        <div className="wp-form">
+          <label className="wp-label">Full Name</label>
+          {/* red border applied if validation failed */}
+          <input className={`wp-input ${errors.name ? "wp-input-error" : ""}`}
+            type="text" placeholder="Enter your name" value={profile.name}
+            onChange={e => setProfile({ ...profile, name: e.target.value })} />
+          {errors.name && <span className="wp-error-msg">{errors.name}</span>}
+ 
+          <label className="wp-label">Language</label>
+          <select className="wp-input" value={profile.language}
+            onChange={e => setProfile({ ...profile, language: e.target.value })}>
+            {languages.map(l => <option key={l}>{l}</option>)}
+          </select>
+ 
+          <label className="wp-label">Text Size</label>
+          {/* pill buttons: clicking one sets textSize and highlights it */}
+          <div className="wp-pill-row">
+            {textSizes.map(s => (
+              <button key={s} className={`wp-pill ${profile.textSize === s ? "wp-pill-active" : ""}`}
+                onClick={() => setProfile({ ...profile, textSize: s })}>{s}</button>
+            ))}
+          </div>
+ 
+          <label className="wp-label">Media Preference</label>
+          <div className="wp-pill-row">
+            {mediaPrefs.map(m => (
+              <button key={m} className={`wp-pill ${profile.media === m ? "wp-pill-active" : ""}`}
+                onClick={() => setProfile({ ...profile, media: m })}>{m}</button>
+            ))}
+          </div>
+        </div>
+      );
+ 
+      // ── landing: the first screen the passenger sees ──
+      if (view === "landing") return (
+        <div className="wp-screen"><div className="wp-card">
+          <div className="wp-header">
+            <span className="wp-airline-logo">✈ SkyLine Air</span>
+            <h1 className="wp-title">Welcome!</h1>
+            <p className="wp-subtitle">Start your flight session</p>
+          </div>
+          <div className="wp-actions">
+            <button className="wp-btn wp-btn-primary"   onClick={handleGuest}>Continue as Guest</button>
+            <button className="wp-btn wp-btn-secondary" onClick={handleCreateProfile}>Create Profile</button>
+            <button className="wp-btn wp-btn-ghost"     onClick={handleManageProfile}>Manage Profile</button>
+          </div>
+        </div></div>
+      );
+ 
+      // ── createProfile: passenger enters their name and preferences ──
+      if (view === "createProfile") return (
+        <div className="wp-screen"><div className="wp-card">
+          <div className="wp-header">
+            <span className="wp-airline-logo">✈ SkyLine Air</span>
+            <h1 className="wp-title">Create Profile</h1>
+          </div>
+          <ProfileForm />
+          <div className="wp-actions">
+            <button className="wp-btn wp-btn-primary" onClick={handleProfileSave}>Save & Continue</button>
+            <button className="wp-btn wp-btn-ghost"   onClick={() => setView("landing")}>Back</button>
+          </div>
+        </div></div>
+      );
+ 
+      // ── manageProfile: same form, different heading and button label ──
+      if (view === "manageProfile") return (
+        <div className="wp-screen"><div className="wp-card">
+          <div className="wp-header">
+            <span className="wp-airline-logo">✈ SkyLine Air</span>
+            <h1 className="wp-title">Manage Profile</h1>
+          </div>
+          <ProfileForm />
+          <div className="wp-actions">
+            <button className="wp-btn wp-btn-primary" onClick={handleProfileSave}>Save Changes</button>
+            <button className="wp-btn wp-btn-ghost"   onClick={() => setView("landing")}>Back</button>
+          </div>
+        </div></div>
+      );
+ 
+      // ── preferences: summary of saved settings before entering the app ──
+      if (view === "preferences") return (
+        <div className="wp-screen"><div className="wp-card">
+          <div className="wp-header">
+            <span className="wp-airline-logo">✈ SkyLine Air</span>
+            <h1 className="wp-title">Your Preferences</h1>
+            <p className="wp-subtitle">
+              {session === "guest" ? "Guest Session" : `Welcome, ${profile.name || "Passenger"}`}
+            </p>
+          </div>
+          {/* display each preference as a label/value row */}
+          <div className="wp-pref-list">
+            {[["Language",profile.language],["Text Size",profile.textSize],["Media",profile.media]].map(([k,v]) => (
+              <div className="wp-pref-row" key={k}>
+                <span className="wp-pref-label">{k}</span>
+                <span className="wp-pref-value">{v}</span>
+              </div>
+            ))}
+          </div>
+          <p className="wp-pref-note">These preferences are saved for your current flight session.</p>
+          <div className="wp-actions">
+            <button className="wp-btn wp-btn-primary" onClick={handlePreferencesSave}>
+              Go to Home Dashboard
+            </button>
+          </div>
+        </div></div>
+      );
+ 
+      return null;
+    };
+ 
+ 
+    // ── HelpCenter ───────────────────────────────────────────────────
+    // Handles FR 5.1–5.4: call attendant, make phone call, report issue, send feedback.
+    // Phone call flow has its own internal sub-screens managed by phoneStep state.
+    const HelpCenter = ({ onNavigate }) => {
+      // attendantStatus: null | "pending" | "acknowledged"
+      const [attendantStatus, setAttendantStatus] = React.useState(null);
+ 
+      // phoneView: true when passenger opens the phone call flow
+      const [phoneView, setPhoneView] = React.useState(false);
+ 
+      // phoneStep tracks where in the call flow we are: dial | payment | calling | complete
+      const [phoneStep, setPhoneStep] = React.useState("dial");
+ 
+      const [phoneNumber, setPhoneNumber] = React.useState("");
+      const [cardInfo, setCardInfo] = React.useState({ number:"", expiry:"", cvv:"" });
+      const [phoneErrors, setPhoneErrors] = React.useState({});
+      const [cardErrors, setCardErrors]   = React.useState({});
+ 
+      // callTimer counts seconds elapsed during the active call
+      const [callTimer, setCallTimer] = React.useState(0);
+ 
+      // useRef stores the interval ID so we can clear it when the call ends
+      // (covered in lecture 5 with canvas/animation examples)
+      const timerRef = React.useRef(null);
+ 
+      // simulate calling a flight attendant — auto-acknowledges after 4 seconds
+      const handleCallAttendant = () => {
+        if (attendantStatus === "pending") return;
+        setAttendantStatus("pending");
+        setTimeout(() => setAttendantStatus("acknowledged"), 4000);
+      };
+ 
+      // basic phone number validation — strips non-digits and checks length
+      const validatePhone = () => {
+        const e = {};
+        const d = phoneNumber.replace(/\D/g,""); // regex from CMSC 433
+        if (!d) e.phone = "Please enter a phone number.";
+        else if (d.length < 7) e.phone = "Phone number is too short.";
+        setPhoneErrors(e);
+        return !Object.keys(e).length;
+      };
+ 
+      // card validation — checks number length, expiry format, and CVV digits
+      const validateCard = () => {
+        const e = {};
+        if (!cardInfo.number.replace(/\s/g,"") || cardInfo.number.replace(/\s/g,"").length < 12)
+          e.number = "Enter a valid card number.";
+        if (!cardInfo.expiry.match(/^\d{2}\/\d{2}$/)) // regex from CMSC 433
+          e.expiry = "Format: MM/YY";
+        if (!cardInfo.cvv.match(/^\d{3,4}$/)) // regex from CMSC 433
+          e.cvv = "Enter a valid CVV.";
+        setCardErrors(e);
+        return !Object.keys(e).length;
+      };
+ 
+      // start the call: validate card, move to calling screen, begin timer
+      const startCall = () => {
+        if (!validateCard()) return;
+        setPhoneStep("calling");
+        // setInterval fires every 1000ms (1 second) and increments the timer
+        timerRef.current = setInterval(() => setCallTimer(t => t + 1), 1000);
+      };
+ 
+      // end the call: stop the timer and move to the invoice screen
+      const endCall = () => {
+        clearInterval(timerRef.current);
+        setPhoneStep("complete");
+      };
+ 
+      // reset all phone call state to go back to the help center home
+      const resetPhone = () => {
+        setPhoneView(false);
+        setPhoneStep("dial");
+        setPhoneNumber("");
+        setCardInfo({ number:"", expiry:"", cvv:"" });
+        setPhoneErrors({});
+        setCardErrors({});
+        setCallTimer(0);
+      };
+ 
+      // format seconds into MM:SS for the call timer display
+      const fmt = s => `${Math.floor(s/60).toString().padStart(2,"0")}:${(s%60).toString().padStart(2,"0")}`;
+ 
+      // ── Phone call sub-screens (only shown when phoneView is true) ──
+      if (phoneView) {
+ 
+        // step 1: enter phone number
+        if (phoneStep === "dial") return (
+          <div className="hc-screen"><div className="hc-card">
+            <div className="hc-header">
+              <button className="hc-back" onClick={resetPhone}>← Help Center</button>
+              <h1 className="hc-title">Make a Phone Call</h1>
+              <p className="hc-subtitle">Calls are billed per minute to your credit card.</p>
+            </div>
+            <div className="hc-form">
+              <div className="hc-rate-box">📡 Rate: $1.99 / min - minimum charge $1.99</div>
+              <label className="hc-label">Phone Number</label>
+              <input className={`hc-input ${phoneErrors.phone ? "hc-input-error" : ""}`}
+                type="tel" placeholder="+1 (555) 000-0000" value={phoneNumber}
+                onChange={e => setPhoneNumber(e.target.value)} />
+              {phoneErrors.phone && <span className="hc-error-msg">{phoneErrors.phone}</span>}
+            </div>
+            <div className="hc-actions">
+              <button className="hc-btn hc-btn-primary"
+                onClick={() => { if (validatePhone()) setPhoneStep("payment"); }}>
+                Continue to Payment
+              </button>
+              <button className="hc-btn hc-btn-ghost" onClick={resetPhone}>Cancel</button>
+            </div>
+          </div></div>
+        );
+ 
+        // step 2: enter credit card to authorize the call
+        if (phoneStep === "payment") return (
+          <div className="hc-screen"><div className="hc-card">
+            <div className="hc-header">
+              <button className="hc-back" onClick={() => setPhoneStep("dial")}>← Back</button>
+              <h1 className="hc-title">Enter Payment</h1>
+              <p className="hc-subtitle">Calling: {phoneNumber}</p>
+            </div>
+            <div className="hc-form">
+              <label className="hc-label">Card Number</label>
+              <input className={`hc-input ${cardErrors.number ? "hc-input-error" : ""}`}
+                type="text" placeholder="1234 5678 9012 3456" maxLength={19}
+                value={cardInfo.number}
+                onChange={e => setCardInfo({...cardInfo, number: e.target.value})} />
+              {cardErrors.number && <span className="hc-error-msg">{cardErrors.number}</span>}
+              {/* expiry and CVV side by side */}
+              <div className="hc-form-row">
+                <div className="hc-form-half">
+                  <label className="hc-label">Expiry</label>
+                  <input className={`hc-input ${cardErrors.expiry ? "hc-input-error" : ""}`}
+                    placeholder="MM/YY" maxLength={5} value={cardInfo.expiry}
+                    onChange={e => setCardInfo({...cardInfo, expiry: e.target.value})} />
+                  {cardErrors.expiry && <span className="hc-error-msg">{cardErrors.expiry}</span>}
+                </div>
+                <div className="hc-form-half">
+                  <label className="hc-label">CVV</label>
+                  <input className={`hc-input ${cardErrors.cvv ? "hc-input-error" : ""}`}
+                    placeholder="CVV" maxLength={4} value={cardInfo.cvv}
+                    onChange={e => setCardInfo({...cardInfo, cvv: e.target.value})} />
+                  {cardErrors.cvv && <span className="hc-error-msg">{cardErrors.cvv}</span>}
+                </div>
+              </div>
+            </div>
+            <div className="hc-actions">
+              <button className="hc-btn hc-btn-primary" onClick={startCall}>Authorize & Connect Call</button>
+              <button className="hc-btn hc-btn-ghost" onClick={resetPhone}>Cancel</button>
+            </div>
+          </div></div>
+        );
+ 
+        // step 3: active call — shows live timer and end call button
+        if (phoneStep === "calling") return (
+          <div className="hc-screen"><div className="hc-card hc-calling-card">
+            <div className="hc-calling-icon">📞</div>
+            <h1 className="hc-title">Call in Progress</h1>
+            <p className="hc-subtitle">{phoneNumber}</p>
+            <div className="hc-timer">{fmt(callTimer)}</div>
+            <p className="hc-rate-note">$1.99 / min</p>
+            <button className="hc-btn hc-btn-danger" onClick={endCall}>End Call</button>
+          </div></div>
+        );
+ 
+        // step 4: invoice shown after call ends
+        if (phoneStep === "complete") {
+          // calculate charge — minimum $1.99 even for very short calls
+          const charge = Math.max(1.99, ((callTimer / 60) * 1.99)).toFixed(2);
+          return (
+            <div className="hc-screen"><div className="hc-card">
+              <div className="hc-success-icon">✅</div>
+              <h1 className="hc-title" style={{textAlign:"center",padding:"0.5rem 1.5rem 0"}}>Call Ended</h1>
+              <p className="hc-subtitle" style={{textAlign:"center",padding:"0.25rem"}}>Duration: {fmt(callTimer)}</p>
+              <div className="hc-invoice-box">
+                <div className="hc-invoice-row">
+                  <span>Phone Call ({phoneNumber})</span>
+                  <span>${charge}</span>
+                </div>
+                <div className="hc-invoice-row hc-invoice-total">
+                  <span>Total Charged</span>
+                  <span>${charge}</span>
+                </div>
+                <p className="hc-invoice-note">Invoice saved to your account.</p>
+              </div>
+              <div className="hc-actions">
+                <button className="hc-btn hc-btn-primary" onClick={resetPhone}>Back to Help Center</button>
+              </div>
+            </div></div>
+          );
+        }
+      }
+ 
+      // ── Help Center home screen ──
+      return (
+        <div className="hc-screen"><div className="hc-card">
+          <div className="hc-header">
+            {/* navigate("home") goes to HomeDashboard in App */}
+            <button className="hc-back" onClick={() => onNavigate("home")}>← Home</button>
+            <span className="hc-airline-logo">✈ SkyLine Air</span>
+            <h1 className="hc-title">Help Center</h1>
+            <p className="hc-subtitle">How can we help you?</p>
+          </div>
+ 
+          {/* status banner only shows when attendant has been called */}
+          {attendantStatus === "pending" && (
+            <div className="hc-status-banner hc-status-pending">
+              <span>🔔 Request sent — a crew member is on the way.</span>
+              <button className="hc-status-cancel" onClick={() => setAttendantStatus(null)}>Cancel</button>
+            </div>
+          )}
+          {attendantStatus === "acknowledged" && (
+            <div className="hc-status-banner hc-status-ok">
+              ✅ Request acknowledged. Crew member is coming.
+            </div>
+          )}
+ 
+          {/* four help options in a 2x2 grid */}
+          <div className="hc-grid">
+            {/* disabled while request is pending so passenger can't send duplicates */}
+            <button className={`hc-tile ${attendantStatus ? "hc-tile-active" : ""}`}
+              onClick={handleCallAttendant} disabled={attendantStatus === "pending"}>
+              <span className="hc-tile-icon">🛎</span>
+              <span className="hc-tile-label">Call Flight Attendant</span>
+              <span className="hc-tile-status">
+                {attendantStatus === "pending" ? "Request Active"
+                  : attendantStatus === "acknowledged" ? "Crew Coming"
+                  : "No active requests"}
+              </span>
+            </button>
+ 
+            <button className="hc-tile" onClick={() => setPhoneView(true)}>
+              <span className="hc-tile-icon">📞</span>
+              <span className="hc-tile-label">Make Phone Call</span>
+              <span className="hc-tile-status">Credit card required</span>
+            </button>
+ 
+            <button className="hc-tile" onClick={() => onNavigate("reportIssue")}>
+              <span className="hc-tile-icon">⚠️</span>
+              <span className="hc-tile-label">Report an Issue</span>
+              <span className="hc-tile-status">App, order, or system</span>
+            </button>
+ 
+            <button className="hc-tile" onClick={() => onNavigate("reportIssue")}>
+              <span className="hc-tile-icon">💬</span>
+              <span className="hc-tile-label">Send Feedback</span>
+              <span className="hc-tile-status">General comments</span>
+            </button>
+          </div>
+        </div></div>
+      );
+    };
+ 
+ 
+    // ── ReportIssue ──────────────────────────────────────────────────
+    // Handles FR 5.3 and 5.4: report an issue or send feedback.
+    // requestType pill toggle switches between the two modes and updates the category list.
+    const ReportIssue = ({ onNavigate }) => {
+      // requestType determines which category list to show
+      const [requestType, setRequestType] = React.useState("Report Issue");
+      const [category, setCategory]       = React.useState("");
+      const [message, setMessage]         = React.useState("");
+      const [seatNumber, setSeatNumber]   = React.useState(""); // optional
+      const [submitted, setSubmitted]     = React.useState(false);
+      const [errors, setErrors]           = React.useState({});
+ 
+      // two separate category lists depending on request type
+      const categories = {
+        "Report Issue":  ["Screen / Website Problem","Food Order Issue","Shopping Issue","Phone Call Issue","Entertainment Issue","Other App Issue"],
+        "Send Feedback": ["General Experience","Entertainment Feedback","Food & Beverage Feedback","Service Feedback","Other"],
+      };
+ 
+      // validate required fields before submission
+      const validate = () => {
+        const e = {};
+        if (!category) e.category = "Please select a category.";
+        if (!message.trim()) e.message = "Please enter a message.";
+        setErrors(e);
+        return !Object.keys(e).length;
+      };
+ 
+      // mark as urgent if it's a screen/app issue so crew is notified immediately
+      const isUrgent = requestType === "Report Issue" &&
+        ["Screen / Website Problem","Other App Issue"].includes(category);
+ 
+      // ── confirmation screen shown after successful submission ──
+      if (submitted) return (
+        <div className="ri-screen"><div className="ri-card">
+          <div className="ri-success-icon">✅</div>
+          <h1 className="ri-title" style={{textAlign:"center",padding:"0.5rem 1.5rem 0"}}>Request Sent!</h1>
+          <p className="ri-subtitle" style={{textAlign:"center",padding:"0.25rem 1.5rem"}}>
+            Your {requestType.toLowerCase()} has been received.
+          </p>
+          {/* summary of what was submitted */}
+          <div className="ri-confirm-box">
+            {/* filter(Boolean) removes the seat row if seatNumber is empty */}
+            {[["Type",requestType],["Category",category],seatNumber&&["Seat",seatNumber]].filter(Boolean).map(([k,v]) => (
+              <div className="ri-confirm-row" key={k}>
+                <span className="ri-confirm-label">{k}</span>
+                <span className="ri-confirm-value">{v}</span>
+              </div>
+            ))}
+            <div className="ri-confirm-row">
+              <span className="ri-confirm-label">Status</span>
+              <span className={`ri-status-badge ${isUrgent ? "ri-badge-urgent" : "ri-badge-pending"}`}>
+                {isUrgent ? "Urgent — Crew Notified" : "Pending"}
+              </span>
+            </div>
+          </div>
+          <div className="ri-actions">
+            {/* reset form fields to allow another submission */}
+            <button className="ri-btn ri-btn-primary"
+              onClick={() => { setSubmitted(false); setCategory(""); setMessage(""); setSeatNumber(""); }}>
+              Submit Another
+            </button>
+            <button className="ri-btn ri-btn-ghost" onClick={() => onNavigate("helpCenter")}>
+              Back to Help Center
+            </button>
+          </div>
+        </div></div>
+      );
+ 
+      // ── report/feedback form ──
+      return (
+        <div className="ri-screen"><div className="ri-card">
+          <div className="ri-header">
+            <button className="ri-back" onClick={() => onNavigate("helpCenter")}>← Help Center</button>
+            <span className="ri-airline-logo">✈ SkyLine Air</span>
+            <h1 className="ri-title">Report Issue / Feedback</h1>
+          </div>
+          <div className="ri-form">
+            <label className="ri-label">Request Type</label>
+            {/* switching type also clears the selected category */}
+            <div className="ri-pill-row">
+              {["Report Issue","Send Feedback"].map(t => (
+                <button key={t} className={`ri-pill ${requestType === t ? "ri-pill-active" : ""}`}
+                  onClick={() => { setRequestType(t); setCategory(""); }}>{t}</button>
+              ))}
+            </div>
+ 
+            <label className="ri-label">Category</label>
+            {/* category options update based on which requestType is selected */}
+            <select className={`ri-input ${errors.category ? "ri-input-error" : ""}`}
+              value={category} onChange={e => setCategory(e.target.value)}>
+              <option value="">Select a category…</option>
+              {categories[requestType].map(c => <option key={c}>{c}</option>)}
+            </select>
+            {errors.category && <span className="ri-error-msg">{errors.category}</span>}
+ 
+            <label className="ri-label">Message</label>
+            <textarea className={`ri-textarea ${errors.message ? "ri-input-error" : ""}`}
+              placeholder="Type your message here…" rows={4} maxLength={500}
+              value={message} onChange={e => setMessage(e.target.value)} />
+            {errors.message && <span className="ri-error-msg">{errors.message}</span>}
+            {/* live character counter */}
+            <span className="ri-char-count">{message.length} / 500</span>
+ 
+            <label className="ri-label">Seat Number <span className="ri-optional">(optional)</span></label>
+            <input className="ri-input" type="text" placeholder="e.g. 14A"
+              value={seatNumber} onChange={e => setSeatNumber(e.target.value)} />
+          </div>
+          <div className="ri-actions">
+            <button className="ri-btn ri-btn-primary"
+              onClick={() => { if (validate()) setSubmitted(true); }}>
+              Submit
+            </button>
+            <button className="ri-btn ri-btn-ghost" onClick={() => onNavigate("helpCenter")}>Cancel</button>
+          </div>
+        </div></div>
+      );
+    };
+ 
+ 
+    // ── App ──────────────────────────────────────────────────────────
+    // Root component — owns the current page state and routes between screens.
+    // Navigation flow: welcome → home → helpCenter ↔ reportIssue
+    const App = () => {
+      // page state controls which screen is rendered (conditional rendering from lecture 3)
+      const [page, setPage] = React.useState("welcome");
+ 
+      // sessionInfo is passed from WelcomePage and forwarded to HomeDashboard
+      const [sessionInfo, setSessionInfo] = React.useState(null);
+ 
+      // navigate is passed as a prop to child components so they can change the page
+      const navigate = (dest) => setPage(dest);
+ 
+      // called by WelcomePage when passenger finishes setup
+      // saves their session info and sends them to the home dashboard
+      const handleWelcomeContinue = (info) => {
+        setSessionInfo(info);
+        setPage("home");
+      };
+ 
+      return (
+        <div>
+          {/* dev-nav: quick screen switcher for development — remove before final submission */}
+          <div className="dev-nav">
+            <span>Preview:</span>
+            <button onClick={() => setPage("welcome")}>Welcome</button>
+            <button onClick={() => setPage("home")}>Home Dashboard</button>
+            <button onClick={() => setPage("helpCenter")}>Help Center</button>
+            <button onClick={() => setPage("reportIssue")}>Report Issue</button>
+          </div>
+ 
+          {/* conditional rendering — only the matching page renders at a time */}
+          {page === "welcome"     && <WelcomePage onContinue={handleWelcomeContinue} />}
+          {page === "home"        && <HomeDashboard sessionInfo={sessionInfo} onNavigate={navigate} />}
+          {page === "helpCenter"  && <HelpCenter onNavigate={navigate} />}
+          {page === "reportIssue" && <ReportIssue onNavigate={navigate} />}
+        </div>
+      );
+    };
+ 
+    // mount the React app into the #root div
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
+ 

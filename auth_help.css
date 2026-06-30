@@ -1,0 +1,216 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sky-dark:   #0b1f3a;
+  --sky-mid:    #1a3a5c;
+  --sky-accent: #4d9de0;
+  --sky-light:  #e8f4fd;
+  --gold:       #f0b429;
+  --white:      #ffffff;
+  --gray-100:   #f5f7fa;
+  --gray-300:   #d1d9e0;
+  --gray-500:   #8896a5;
+  --gray-700:   #4a5568;
+  --danger:     #e53e3e;
+  --success:    #38a169;
+  --pending:    #dd6b20;
+  --radius:     12px;
+  --shadow:     0 4px 24px rgba(11,31,58,0.18);
+  --transition: 0.18s ease;
+}
+
+/* center everything over the dark gradient background */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* only here for convenience, so you can flip through pages easily; will delete before submission */
+.dev-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  z-index: 999;
+  flex-wrap: wrap;
+}
+.dev-nav button {
+  background: var(--sky-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.dev-nav span { color: var(--gray-300); font-size: 0.7rem; align-self: center; }
+
+/* root container: max width so it looks like a tablet/phone screen */
+#root { width: 100%; max-width: 480px; padding-top: 2.5rem; }
+
+/* ── Welcome Page ── */
+.wp-screen { width: 100%; }
+/* white card that holds the welcome content */
+.wp-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+/* dark gradient at the top of the card */
+.wp-header { background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid)); color: var(--white); padding: 2rem 1.5rem 1.5rem; text-align: center; }
+.wp-airline-logo { font-size: 0.85rem; letter-spacing: 0.1em; opacity: 0.8; display: block; margin-bottom: 0.75rem; }
+.wp-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+.wp-subtitle { font-size: 0.95rem; opacity: 0.8; }
+
+/* vertical stack of action buttons */
+.wp-actions { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+/* base button style */
+.wp-btn { width: 100%; padding: 0.85rem; border-radius: 8px; border: none; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity var(--transition), transform var(--transition); }
+.wp-btn:active { transform: scale(0.98); }
+
+/* three button color variants */
+.wp-btn-primary  { background: var(--sky-accent); color: var(--white); }
+.wp-btn-primary:hover { opacity: 0.9; }
+.wp-btn-secondary { background: var(--sky-dark); color: var(--white); }
+.wp-btn-secondary:hover { opacity: 0.85; }
+.wp-btn-ghost { background: transparent; color: var(--sky-mid); border: 2px solid var(--gray-300); }
+.wp-btn-ghost:hover { border-color: var(--sky-accent); color: var(--sky-accent); }
+
+/* form layout for profile fields */
+.wp-form { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.wp-label { font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-top: 0.75rem; }
+
+/* input style for text fields and dropdowns */
+.wp-input { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid var(--gray-300); border-radius: 8px; font-size: 0.95rem; color: var(--sky-dark); transition: border-color var(--transition); }
+.wp-input:focus { outline: none; border-color: var(--sky-accent); }
+.wp-input-error { border-color: var(--danger) !important; }
+.wp-error-msg { font-size: 0.78rem; color: var(--danger); }
+
+/* pill buttons for selecting language/text size/media pref */
+.wp-pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+.wp-pill { padding: 0.4rem 0.9rem; border-radius: 20px; border: 1.5px solid var(--gray-300); background: var(--white); color: var(--gray-700); font-size: 0.85rem; cursor: pointer; transition: all var(--transition); }
+/* when selected, pill turns blue */
+.wp-pill-active { background: var(--sky-accent); border-color: var(--sky-accent); color: var(--white); font-weight: 600; }
+.wp-pref-list { margin: 0 1.5rem; border: 1.5px solid var(--gray-300); border-radius: 8px; overflow: hidden; }
+.wp-pref-row { display: flex; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--gray-100); }
+.wp-pref-row:last-child { border-bottom: none; }
+.wp-pref-label { color: var(--gray-500); font-size: 0.9rem; }
+.wp-pref-value { font-weight: 600; color: var(--sky-dark); font-size: 0.9rem; }
+.wp-pref-note { font-size: 0.8rem; color: var(--gray-500); text-align: center; padding: 0.75rem 1.5rem 0; }
+
+/* ── Help Center styles ── */
+.hc-screen { width: 100%; }
+.hc-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.hc-header { background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid)); color: var(--white); padding: 1.25rem 1.5rem; position: relative; }
+/* back button in the header */
+.hc-back { background: none; border: none; color: rgba(255,255,255,0.75); font-size: 0.85rem; cursor: pointer; padding: 0; margin-bottom: 0.5rem; display: block; }
+.hc-back:hover { color: var(--white); }
+.hc-airline-logo { font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.7; display: block; margin-bottom: 0.25rem; }
+.hc-title { font-size: 1.5rem; font-weight: 700; }
+.hc-subtitle { font-size: 0.85rem; opacity: 0.8; margin-top: 0.15rem; }
+/* status banner shown when attendant is called or request is acknowledged */
+.hc-status-banner { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; font-size: 0.85rem; font-weight: 500; }
+.hc-status-pending { background: #fff3cd; color: #856404; }
+.hc-status-ok      { background: #d1e7dd; color: #0a3622; }
+.hc-status-cancel { background: none; border: 1px solid currentColor; border-radius: 6px; padding: 0.2rem 0.6rem; font-size: 0.75rem; cursor: pointer; color: inherit; }
+/* 2-column grid of help option tiles */
+.hc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); border-top: 1px solid var(--gray-100); }
+.hc-tile { background: var(--white); border: none; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; transition: background var(--transition); text-align: center; }
+.hc-tile:hover { background: var(--sky-light); }
+.hc-tile:disabled { opacity: 0.6; cursor: default; }
+.hc-tile-active { background: var(--sky-light); }
+.hc-tile-icon { font-size: 2rem; }
+.hc-tile-label { font-size: 0.9rem; font-weight: 700; color: var(--sky-dark); }
+.hc-tile-status { font-size: 0.75rem; color: var(--gray-500); }
+/* form used for phone number and payment inputs */
+.hc-form { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+/* info box showing the per-minute rate */
+.hc-rate-box { background: var(--gray-100); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem; }
+.hc-label { font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-top: 0.5rem; }
+.hc-input { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid var(--gray-300); border-radius: 8px; font-size: 0.95rem; color: var(--sky-dark); transition: border-color var(--transition); }
+.hc-input:focus { outline: none; border-color: var(--sky-accent); }
+.hc-input-error { border-color: var(--danger) !important; }
+.hc-error-msg { font-size: 0.78rem; color: var(--danger); }
+/* side-by-side row for expiry + cvv fields */
+.hc-form-row { display: flex; gap: 0.75rem; }
+.hc-form-half { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+.hc-actions { padding: 1rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.hc-btn { width: 100%; padding: 0.85rem; border-radius: 8px; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity var(--transition); }
+.hc-btn:hover { opacity: 0.88; }
+.hc-btn-primary { background: var(--sky-accent); color: var(--white); }
+/* red end-call button — narrower than full width */
+.hc-btn-danger  { background: var(--danger); color: var(--white); width: auto; padding: 0.85rem 2.5rem; }
+.hc-btn-ghost { background: transparent; color: var(--sky-mid); border: 2px solid var(--gray-300); }
+/* centered layout for the active call screen */
+.hc-calling-card { display: flex; flex-direction: column; align-items: center; padding: 3rem 1.5rem; gap: 0.75rem; }
+/* pulsing phone icon while call is active */
+.hc-calling-icon { font-size: 3rem; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+/* live call timer display */
+.hc-timer { font-size: 2.5rem; font-weight: 700; color: var(--sky-dark); letter-spacing: 0.05em; }
+.hc-rate-note { font-size: 0.85rem; color: var(--gray-500); }
+.hc-success-icon { font-size: 3rem; text-align: center; padding: 1.5rem 0 0; }
+/* invoice box shown after call ends */
+.hc-invoice-box { margin: 0.5rem 1.5rem 0; border: 1.5px solid var(--gray-300); border-radius: 8px; overflow: hidden; }
+.hc-invoice-row { display: flex; justify-content: space-between; padding: 0.65rem 1rem; font-size: 0.9rem; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); }
+.hc-invoice-total { background: var(--sky-light); font-weight: 700; color: var(--sky-dark); border-bottom: none; }
+.hc-invoice-note { font-size: 0.78rem; color: var(--gray-500); padding: 0.5rem 1rem 0.75rem; text-align: center; }
+
+/* ── Report Issue styles ── */
+.ri-screen { width: 100%; }
+.ri-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; padding-bottom: 1rem; }
+.ri-header { background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid)); color: var(--white); padding: 1.25rem 1.5rem; }
+.ri-back { background: none; border: none; color: rgba(255,255,255,0.75); font-size: 0.85rem; cursor: pointer; padding: 0; margin-bottom: 0.4rem; display: block; }
+.ri-back:hover { color: var(--white); }
+.ri-airline-logo { font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.7; display: block; margin-bottom: 0.2rem; }
+.ri-title { font-size: 1.4rem; font-weight: 700; }
+.ri-subtitle { font-size: 0.85rem; opacity: 0.8; margin-top: 0.15rem; }
+.ri-form { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.ri-label { font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-top: 0.75rem; }
+.ri-optional { font-weight: 400; color: var(--gray-500); }
+/* shared style for text input and textarea */
+.ri-input, .ri-textarea { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid var(--gray-300); border-radius: 8px; font-size: 0.95rem; color: var(--sky-dark); font-family: inherit; transition: border-color var(--transition); }
+.ri-input:focus, .ri-textarea:focus { outline: none; border-color: var(--sky-accent); }
+.ri-input-error { border-color: var(--danger) !important; }
+.ri-error-msg { font-size: 0.78rem; color: var(--danger); }
+.ri-textarea { resize: vertical; }
+/* character counter shown below the message textarea */
+.ri-char-count { font-size: 0.75rem; color: var(--gray-500); text-align: right; }
+/* pill toggle between "Report Issue" and "Send Feedback" */
+.ri-pill-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
+.ri-pill { padding: 0.4rem 0.9rem; border-radius: 20px; border: 1.5px solid var(--gray-300); background: var(--white); color: var(--gray-700); font-size: 0.85rem; cursor: pointer; transition: all var(--transition); }
+.ri-pill-active { background: var(--sky-accent); border-color: var(--sky-accent); color: var(--white); font-weight: 600; }
+.ri-actions { padding: 0.75rem 1.5rem 0.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.ri-btn { width: 100%; padding: 0.85rem; border-radius: 8px; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity var(--transition); }
+.ri-btn:hover { opacity: 0.88; }
+.ri-btn-primary { background: var(--sky-accent); color: var(--white); }
+.ri-btn-ghost { background: transparent; color: var(--sky-mid); border: 2px solid var(--gray-300); }
+.ri-success-icon { font-size: 3rem; text-align: center; padding: 2rem 0 0.5rem; }
+/* confirmation summary shown after submission */
+.ri-confirm-box { margin: 0.75rem 1.5rem; border: 1.5px solid var(--gray-300); border-radius: 8px; overflow: hidden; }
+.ri-confirm-row { display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 1rem; font-size: 0.9rem; border-bottom: 1px solid var(--gray-100); }
+.ri-confirm-row:last-child { border-bottom: none; }
+.ri-confirm-label { color: var(--gray-500); }
+.ri-confirm-value { font-weight: 600; color: var(--sky-dark); }
+/* status badge: yellow for pending, red for urgent */
+.ri-status-badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.78rem; font-weight: 700; }
+.ri-badge-pending { background: #fff3cd; color: #856404; }
+.ri-badge-urgent  { background: #f8d7da; color: #842029; }
+
+/* ── Home Dashboard styles ── */
+/* placeholder dashboard — group will replace with full version on integration */
+.home-screen { width: 100%; }
+.home-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.home-header { background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid)); color: var(--white); padding: 2rem 1.5rem; text-align: center; }
+.home-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+.home-subtitle { font-size: 0.9rem; opacity: 0.8; }
+/* 2-column grid of section tiles */
+.home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-100); }
+.home-tile { background: var(--white); border: none; padding: 1.75rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; cursor: pointer; transition: background var(--transition); text-align: center; }
+.home-tile:hover { background: var(--sky-light); }
+.home-tile-icon { font-size: 2.25rem; }
+.home-tile-label { font-size: 0.9rem; font-weight: 700; color: var(--sky-dark); }
