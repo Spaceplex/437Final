@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>In-Flight Infotainment - Flight Info</title>
     <link rel="stylesheet" href="flight_info.css">
+    <<script src="flight.js"></script>
 </head>
 <body>
 
@@ -19,9 +20,11 @@
                 <span class="ticker-label">ANNOUNCEMENT:</span>
                 <p class="ticker-text">Passengers are permitted to get out of their seats</p>
             </div>
-            <button class="safety-btn" onclick="navigateToSafety()" title="Click to open announcement and safety">
+            <a href="safety_page.html">
+              <button class="safety-btn">
                 <span class="star-icon">✦</span>
-            </button>
+              </button>
+            </a>
             <div class="weather-display">
                 <span class="weather-icon">☀️</span>
                 <span class="temperature">73°F</span>
@@ -29,7 +32,30 @@
         </div>
 
         <main class="map-container">
-            <p class="map-placeholder-text">Plane over global map and position along path</p>
+          <div class="map-wrapper">
+            <div class="map-bg-graphic">
+              <span class="bg-label">GLOBAL MAP CONTOUR</span>
+            </div>
+
+            <svg class="flight-path-svg" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+              <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+              </filter>
+              </defs>
+
+              <path id="route" class="route-line" d="M 100,250 Q 400,50 700,200" />
+
+              <path class="flown-line" d="M 100,250 Q 400,50 700,200" />
+
+              <circle cx="100" cy="250" r="6" class="waypoint" />
+              <circle cx="700" cy="200" r="6" class="waypoint" />
+
+              <g class="plane-marker">
+              <path d="M0,-12 L3,-3 L15,2 L3,2 L5,10 L10,12 L10,14 L5,13 L3,15 L0,12 L-3,15 L-5,13 L-10,14 L-10,12 L-5,10 L-3,2 L-15,2 L-3,-3 Z" class="plane-icon" />
+              </g>
+            </svg>
+          </div>
         </main>
 
         <footer class="telemetry-footer">

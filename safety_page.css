@@ -1,19 +1,19 @@
-
-/* Reset and Base Styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: white;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+:root {
+  --sky-dark:   #0b1f3a;
+  --sky-mid:    #1a3a5c;
+  --sky-accent: #4d9de0;
 }
 
 body {
-    /* background-color: #f5f5f5; */
-    background: url("gradient.jpg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,154 +21,346 @@ body {
     padding: 20px;
 }
 
-/* Container matching the aspect ratio of the seatback screen */
-.infotainment-container {
+.root {
     width: 100%;
-    max-width: 900px;
-    /* background-color: #ffffff; */
-    border: 2px solid #333333;
-    padding: 25px;
+    max-width: 1100px;
+    background-color: #f0f0f0;
+    border: 1px solid #777777;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    gap: 20px;
 }
 
-/* Header styling */
-.screen-header {
+.main-header h1 {
+    font-size: 36px;
+    font-weight: 400;
+    color: #000000;
+    text-align: left;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 1.1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* LEFT COLUMN STYLES */
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.return-btn {
+    width: 220px;
+    height: 60px;
+    background-color: #e0e0e0;
+    border: 1px solid #555555;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.return-btn:hover {
+    background-color: #d4d4d4;
+}
+
+.left-panel h2 {
+    font-size: 24px;
+    font-weight: 400;
+    color: #555555;
+}
+
+.announcement-log {
+    border: 1px solid #777777;
+    background-color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.announcement-item {
+    padding: 15px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: #222222;
+    border-bottom: 1px solid #777777;
+    text-align: center;
+}
+
+.announcement-item:last-child {
+    border-bottom: none;
+}
+
+.map-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding-top: 20px;
+}
+
+.exit-indicator {
+    color: #ff0000;
+    font-size: 24px;
+    font-weight: bold;
     position: relative;
 }
 
-.system-label {
-    display: block;
-    text-align: center;
-    font-size: 14px;
-    /* color: #666666; */
-    margin-bottom: 5px;
+.left-exit::after {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 40px;
+    border-right: 2px solid #ff5555;
+    position: absolute;
+    right: -12px;
+    top: -5px;
 }
 
-.screen-header h1 {
-    font-size: 28px;
-    /* color: #111111; */
-    font-weight: 500;
+.right-exit::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 40px;
+    border-left: 2px solid #ff5555;
+    position: absolute;
+    left: -12px;
+    top: -5px;
 }
 
-/* Ticker & Utility Bar */
-.ticker-banner {
-    display: flex;
-    align-items: center;
-    border: 1px solid #999999;
-    /* background-color: #f9f9f9; */
-    height: 45px;
-}
-
-.ticker-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.ticker-label {
-    font-weight: bold;
-    font-size: 13px;
-    margin-right: 6px;
-    /* color: #222222; */
-}
-
-.ticker-text {
-    font-size: 14px;
-    /* color: #333333; */
-}
-
-.safety-btn {
-    width: 45px;
-    height: 100%;
-    border: none;
-    border-left: 1px solid #999999;
-    border-right: 1px solid #999999;
-    /* background-color: #e9e9e9; */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.2s;
-}
-
-.safety-btn:hover {
-    background-color: #dddddd;
-}
-
-.star-icon {
-    font-size: 20px;
-    color: #444444;
-}
-
-.weather-display {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 15px;
-    font-size: 15px;
-    color: #333333;
-}
-
-/* Map Canvas Container */
-.map-container {
-    flex: 1;
-    min-height: 300px;
-    background-color: #eeeeee;
-    border: 1px solid #999999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.map-placeholder-text {
-    font-size: 18px;
-    color: #555555;
-    text-align: center;
-}
-
-/* Telemetry Footer Grid Layout */
-.telemetry-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    padding-top: 10px;
-    font-size: 13px;
-    color: #444444;
-    align-items: end;
-}
-
-.data-block {
+.cabin-map {
+    background-color: #ffffff;
+    border: 1px solid #aaaaaa;
+    padding: 15px 10px;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    width: 240px;
 }
 
-/* Center-aligned additions for altitude/speed */
-.stats-block {
-    text-align: center;
+.cabin-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+}
+
+.seat-group {
+    display: flex;
+    gap: 2px;
+}
+
+.seat {
+    width: 24px;
+    height: 22px;
+    border: 1px solid #777777;
+    border-radius: 4px;
+    font-size: 11px;
+    display: flex;
     justify-content: center;
-    font-size: 14px;
-    border-left: 1px dashed #cccccc;
-    border-right: 1px dashed #cccccc;
-    height: 100%;
+    align-items: center;
+    background-color: #ffffff;
+    color: #333333;
 }
 
-/* Right-aligned coordinates block */
-.coords-block {
-    flex-direction: row;
-    justify-content: flex-end;
-    font-size: 16px;
+/* Highlighting specific columns like your color rules */
+.standard-aisle {
+    background-color: #8cbcd0;
+}
+
+.aisle-spacer {
+    flex: 1;
+    text-align: center;
+    font-size: 9px;
+    color: #777777;
+    font-weight: bold;
+}
+
+/* Emergency Exit Layout Rows Overlay Styling */
+.exit-arrow-left::before {
+    content: "←";
+    position: absolute;
+    font-weight: bold;
+    margin-left: 35px;
+    color: #333;
+}
+
+.exit-arrow-right::after {
+    content: "→";
+    position: absolute;
+    font-weight: bold;
+    margin-left: -35px;
+    color: #333;
+}
+
+/* User Location Seating Rules */
+.user-row {
+    position: relative;
+}
+
+.user-seat {
+    border: 1px solid #444;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.user-label {
+    position: absolute;
+    left: -75px;
+    width: 65px;
+    font-size: 10px;
+    color: #666666;
+    text-align: right;
+    line-height: 1.1;
+    top: 0;
+}
+
+/* RIGHT COLUMN PANEL STYLES */
+.safety-info-panel {
+    border: 1px solid #777777;
+    background-color: #f0f0f0;
+    min-height: 380px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.safety-info-panel h2 {
+    font-size: 26px;
+    font-weight: 400;
     color: #555555;
+    text-align: center;
 }
 
-.divider {
-    color: #aaaaaa;
-    margin: 0 5px;
+.safety-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Expansive spacing to emulate wireframe balance */
+    align-items: center;
+}
+
+.safety-topic-btn {
+    width: 100%;
+    max-width: 200px;
+    height: 45px;
+    background-color: #e0e0e0;
+    border: 1px solid #555555;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    box-shadow: inset 0 0 2px #ffffff;
+}
+
+.safety-topic-btn:hover {
+    background-color: #d4d4d4;
+}
+/* Dark Semi-Transparent Modal Backdrop */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Dim underlying page */
+    z-index: 1000; /* Stays firmly on top of everything else */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Core Box Frame */
+.modal-content {
+    width: 90%;
+    max-width: 950px;
+    background-color: transparent; /* Seamless container to hold your left/right modules */
+    pointer-events: auto;
+}
+
+/* Side-by-Side Flex Layout matching your sketch gap */
+.modal-body-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 280px; /* Expansive central clearing to reveal the underlying exit map graphic */
+}
+
+/* Left Text Card Frame */
+.modal-text-card {
+    background-color: #f0f0f0;
+    border: 1px solid #555555;
+    padding: 30px 20px;
+    width: 320px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.modal-text-card h3 {
+    font-size: 22px;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #000000;
+}
+
+.modal-text-card p {
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 500;
+    color: #111111;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.tap-hint {
+    font-size: 14px;
+    font-style: italic;
+    color: #333333;
+    margin-top: 15px;
+}
+
+.modal-video-card {
+    background-color: #f0f0f0;
+    border: 1px solid #555555;
+    width: 320px;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 20px;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #777777;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+}
+
+.video-placeholder span {
+    font-size: 22px;
+    font-style: italic;
+    font-weight: bold;
+    color: #000000;
+}
+
+.modal-overlay.is-active {
+    display: flex;
 }

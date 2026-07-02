@@ -45,7 +45,7 @@
             <div className="home-grid">
               {[
                 { icon:"🎬", label:"Entertainment" },
-                { icon:"✈️", label:"Flight Info"   },
+                { icon:"✈️", label:"Flight Info", dest:"flightInfo" },
                 { icon:"🛍", label:"Shop & Food"   },
                 { icon:"❓", label:"Help Center", dest:"helpCenter" },
               ].map(({ icon, label, dest }) => (
@@ -610,7 +610,13 @@
       const [sessionInfo, setSessionInfo] = React.useState(null);
  
       // navigate is passed as a prop to child components so they can change the page
-      const navigate = (dest) => setPage(dest);
+      const navigate = (dest) => {
+      if (dest == "flightInfo") {
+        window.location.href = "flight_info.html";} 
+      else {
+          setPage(dest);
+        }
+      };
  
       // called by WelcomePage when passenger finishes setup
       // saves their session info and sends them to the home dashboard
