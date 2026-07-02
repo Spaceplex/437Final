@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Show Detail - Media & Content</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-row">
+        <h1>Media & Content</h1>
+        <a href="play.html" class="play-btn">
+          <div class="play-icon">&#9654;</div>
+        </a>
+      </div>
+      <hr>
+    </header>
+
+    <div class="hero-section">
+      <button class="hero-play-btn">&#9654;</button>
+    </div>
+
+    <div class="detail-layout">
+      <div class="detail-left">
+        <div class="action-row">
+          <button class="icon-btn star-btn">&#9733;</button>
+          <button class="icon-btn bookmark-btn">&#128278;</button>
+          <span class="section-label">Synopsis</span>
+        </div>
+        <div class="synopsis-box"></div>
+      </div>
+
+      <div class="detail-right">
+        <span class="section-label">Cast and Crew</span>
+        <div class="cast-scroll">
+          <div class="cast-track">
+            <div class="cast-card"></div>
+            <div class="cast-card"></div>
+            <div class="cast-card"></div>
+            <div class="cast-card"></div>
+            <div class="cast-card"></div>
+            <div class="cast-card"></div>
+          </div>
+          <button class="cast-arrow">&#9654;</button>
+        </div>
+        <div class="info-strip">
+          <div class="info-row">
+            <div class="info-box">Duration</div>
+            <div class="info-box">Genre</div>
+            <div class="info-box">Rating</div>
+            <div class="info-box">Year</div>
+          </div>
+          <div class="info-row">
+            <div class="info-box"></div>
+            <div class="info-box"></div>
+            <div class="info-box"></div>
+            <div class="info-box"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.cast-arrow')?.addEventListener('click', () => {
+      const track = document.querySelector('.cast-track');
+      if (track) track.scrollBy({ left: 150, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
