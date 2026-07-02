@@ -364,3 +364,8 @@ body {
 .modal-overlay.is-active {
     display: flex;
 }
+
+.oxygen-video {
+  background: url(assets/oxygenmask.gif);
+  background-size: cover;
+}
