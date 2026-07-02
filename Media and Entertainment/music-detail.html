@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Detail - Media & Content</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-row">
+        <h1>Media & Content</h1>
+        <a href="index.html" class="play-btn">
+          <div class="play-icon">&#9654;</div>
+        </a>
+      </div>
+      <hr>
+    </header>
+
+    <div class="music-top">
+      <div class="album-square"></div>
+      <div class="album-info">
+        <span class="album-label">Album</span>
+        <div class="album-name-box">Album's Name</div>
+        <div class="album-meta">
+          <div class="meta-circle"></div>
+          <div class="meta-tags">
+            <div class="meta-row">
+              <div class="meta-box">Artist's Name</div>
+              <div class="meta-box">Year</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-box"># Songs</div>
+              <div class="meta-box">Duration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="music-controls-row">
+      <button class="play-circle">&#9654;</button>
+      <button class="icon-btn star-btn">&#9733;</button>
+      <button class="icon-btn bookmark-btn">&#128278;</button>
+    </div>
+
+    <div class="track-table">
+      <div class="track-header">
+        <span class="track-header-title">Title</span>
+        <span class="track-header-clock">&#128340;</span>
+      </div>
+      <div class="track-rows">
+        <div class="track-row">
+          <div class="track-name"></div>
+          <div class="track-time"></div>
+        </div>
+        <div class="track-row">
+          <div class="track-name"></div>
+          <div class="track-time"></div>
+        </div>
+        <div class="track-row">
+          <div class="track-name"></div>
+          <div class="track-time"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="playback-controls">
+      <button class="ctrl-btn">&#9198;</button>
+      <button class="ctrl-btn play-ctrl">&#9654;</button>
+      <button class="ctrl-btn">&#9197;</button>
+    </div>
+    <div class="bb-row">
+      <div class="bb-left">
+      <div class="bb-thumb">
+        <div class="bb-thumb-inner"></div>
+      </div>
+    </div>
+    <div class="bb-center">
+      <span class="bb-time">0:00</span>
+      <div class="bb-progress"></div>
+    </div>
+    <div class="bb-right">
+      <span class="bb-volume-icon">&#128264;</span>
+      <div class="bb-volume-line"></div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const track = carousel.querySelector('.carousel-track');
+      const arrow = carousel.querySelector('.carousel-arrow');
+      if (arrow) arrow.addEventListener('click', () => {
+        track.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

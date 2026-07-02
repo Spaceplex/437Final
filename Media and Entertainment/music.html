@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music - Media & Content</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-row">
+        <h1>Media & Content</h1>
+        <a href="index.html" class="play-btn">
+          <div class="play-icon">&#9654;</div>
+        </a>
+      </div>
+      <hr>
+    </header>
+
+    <div class="options-bar">
+      <div class="opt-item opt-label">MUSIC</div>
+      <div class="opt-item opt-dropdown">
+        <select>
+          <option disabled selected>Genre</option>
+          <option>Action</option>
+          <option>Comedy</option>
+          <option>Drama</option>
+          <option>Fantasy</option>
+          <option>Horror</option>
+          <option>Mystery</option>
+          <option>Sci-Fi</option>
+          <option>Romance</option>
+        </select>
+      </div>
+      <div class="opt-item opt-dropdown">
+        <select>
+          <option disabled selected>Artist</option>
+          <option>English</option>
+          <option>French</option>
+          <option>German</option>
+          <option>Italian</option>
+          <option>Japanese</option>
+          <option>Korean</option>
+          <option>Spanish</option>
+        </select>
+      </div>
+      <div class="opt-item opt-search">
+        <input type="text" placeholder="Search">
+        <button class="search-btn">&#128269;</button>
+      </div>
+    </div>
+
+    <section class="carousel-section">
+      <h2 class="carousel-title">TRENDING</h2>
+      <div class="carousel">
+        <div class="carousel-track">
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+        </div>
+        <button class="carousel-arrow">&#9654;</button>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <h2 class="carousel-title">YOUR FAVORITES</h2>
+      <div class="carousel">
+        <div class="carousel-track">
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+        </div>
+        <button class="carousel-arrow">&#9654;</button>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <h2 class="carousel-title">OUR RECOMMENDATIONS</h2>
+      <div class="carousel">
+        <div class="carousel-track">
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+          <a href="music-detail.html" class="carousel-card"></a>
+        </div>
+        <button class="carousel-arrow">&#9654;</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const track = carousel.querySelector('.carousel-track');
+      const arrow = carousel.querySelector('.carousel-arrow');
+      arrow.addEventListener('click', () => {
+        track.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
