@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyLine Air - In-Flight Marketplace</title>
+
+  <link rel="stylesheet" href="../auth_help.css" />
+  <link rel="stylesheet" href="shopping.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+ 
+  <script type="text/babel">
+    const MARKETPLACE_ITEMS = [
+      // Food Category
+      { id: 101, name: "Artisanal Cheese & Charcuterie Platter", price: 16, category: "Food", rating: 4.8, icon: "🧀", desc: "A selection of cured meats, aged cheeses, crackers, and dried fruit." },
+      { id: 102, name: "Warm Smoked Turkey & Provolone Panini", price: 14, category: "Food", rating: 4.6, icon: "🥪", desc: "Toasted ciabatta with pesto mayo, served crisp and fresh." },
+      
+      // Drinks Category
+      { id: 201, name: "Premium Craft IPA Beer (Local Brewery)", price: 9, category: "Drinks", rating: 4.7, icon: "🍺", desc: "Crisp, hoppy profile served chilled with a complimentary snack." },
+      { id: 202, name: "Sparkling Mineral Water with Citrus infusion", price: 4, category: "Drinks", rating: 4.5, icon: "🥤", desc: "Refreshing zero-calorie hydration option." },
+      
+      // Duty Free & Services Category
+      { id: 301, name: "Full Flight High-Speed Wi-Fi Pass", price: 25, category: "Duty Free", rating: 4.9, icon: "📶", desc: "Unlimited streaming and browsing bandwidth for the entire journey." },
+      { id: 302, name: "Global Cellular Roaming Data Pack", price: 18, category: "Duty Free", rating: 4.4, icon: "📱", desc: "Pre-configure your carrier profile before landing for seamless connectivity." },
+      { id: 303, name: "Premium Noise-Cancelling Headphones", price: 299, category: "Duty Free", rating: 4.9, icon: "🎧", desc: "Acoustic sealing optimized for active aircraft engine frequencies." }
+    ];
+
+    const ShoppingApp = () => {
+      const [cart, setCart] = React.useState([]);
+      const [filter, setFilter] = React.useState("All");
+      const [isCartOpen, setIsCartOpen] = React.useState(false);
+
+      const addToCart = (product) => {
+        setCart(prev => {
+          const existing = prev.find(item => item.id === product.id);
+          if (existing) {
+            return prev.map(item => item.id === product.id ? { ...item, qty: item.qty + 1 } : item);
+          }
+          return [...prev, { ...product, qty: 1 }];
+        });
+      };
+
+      const updateQty = (id, delta) => {
+        setCart(prev => prev.map(item => {
+          if (item.id === id) {
+            const newQty = item.qty + delta;
+            return newQty > 0 ? { ...item, qty: newQty } : null;
+          }
+          return item;
+        }).filter(Boolean));
+      };
+
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      const filteredProducts = filter === "All" ? MARKETPLACE_ITEMS : MARKETPLACE_ITEMS.filter(p => p.category === filter);
+
+      return (
+        <div className="shop-root-container">
+          <header className="shop-navbar-header">
+            <div className="brand-group">
+              <button className="back-dash-btn" onClick={() => window.location.href = "../auth_help.html"}>↩</button>
+              <div>
+                <span className="system-label">SkyLine Infotainment</span>
+                <h1>In-Flight Cabin Menu & Shop</h1>
+              </div>
+            </div>
+            
+            <button className="cart-trigger-badge" onClick={() => setIsCartOpen(true)}>
+              <span className="cart-icon">🛒</span>
+              <span className="cart-label">My Basket</span>
+              {totalItems > 0 && <span className="item-count-indicator">{totalItems}</span>}
+            </button>
+            <a href="../invoice.html">
+            <button className="cart-trigger-badge">
+              <span>Invoice</span>
+              {totalItems > 0 && <span className="item-count-indicator">{totalItems}</span>}
+            </button>
+            </a>
+          </header>
+
+          {/* Navigation filter menu updating to handle new arrays */}
+          <nav className="category-pill-row">
+            {["All", "Food", "Drinks", "Duty Free"].map(cat => (
+              <button 
+                key={cat} 
+                className={`filter-pill ${filter === cat ? "pill-active" : ""}`}
+                onClick={() => setFilter(cat)}
+              >
+                {cat === "Duty Free" ? "Duty Free & Services" : cat}
+              </button>
+            ))}
+          </nav>
+
+          {/* Grid Render */}
+          <main className="products-showcase-grid">
+            {filteredProducts.map(product => (
+              <article key={product.id} className="product-showcase-card">
+                <div className="product-img-frame">
+                  <span className="category-tag">{product.category}</span>
+                  <div className="image-placeholder-box">{product.icon}</div>
+                </div>
+                <div className="product-details-pane">
+                  <div className="rating-row">⭐ {product.rating}</div>
+                  <h3>{product.name}</h3>
+                  <p>{product.desc}</p>
+                  <div className="purchase-footer-row">
+                    <span className="price-tag">${product.price}</span>
+                    <button className="add-to-basket-btn" onClick={() => addToCart(product)}>
+                      Add to Order
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </main>
+
+          {/* Sliding Cart Panel View */}
+          <div className={`cart-drawer-overlay ${isCartOpen ? "drawer-visible" : ""}`} onClick={() => setIsCartOpen(false)}>
+            <aside className="cart-sidebar-panel" onClick={e => e.stopPropagation()}>
+              <div className="cart-panel-header">
+                <h2>Your Selection ({totalItems})</h2>
+                <button className="close-drawer-btn" onClick={() => setIsCartOpen(false)}>✕</button>
+              </div>
+
+              <div className="cart-scroll-container">
+                {cart.length === 0 ? (
+                  <div className="empty-cart-state">
+                    <span className="empty-icon">🍱</span>
+                    <p>Your basket is currently empty.</p>
+                    <small>Items selected from food, drinks, or networks will display here.</small>
+                  </div>
+                ) : (
+                  cart.map(item => (
+                    <div key={item.id} className="cart-item-row">
+                      <div className="cart-item-info">
+                        <h4>{item.name}</h4>
+                        <span className="cart-item-price">${item.price} × {item.qty}</span>
+                      </div>
+                      <div className="quantity-adjust-controls">
+                        <button onClick={() => updateQty(item.id, -1)}>−</button>
+                        <span className="qty-value-readout">{item.qty}</span>
+                        <button onClick={() => updateQty(item.id, 1)}>+</button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {cart.length > 0 && (
+                <div className="cart-summary-footer">
+                  <div className="summary-row-line">
+                    <span>Total Due:</span>
+                    <strong className="computed-total-price">${subtotal}.00</strong>
+                  </div>
+                  <p className="delivery-notice-text">
+                    🔔 Digital connectivity tokens will activate instantly. Refreshments will be brought to your seat by attendants.
+                  </p>
+                  <a href="../order-status.html">
+                  <button className="checkout-finalize-btn">
+                    Send Order to Cabin Crew
+                  </button>
+                  </a>
+                </div>
+              )}
+            </aside>
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<ShoppingApp />);
+  </script>
+</body>
+</html>

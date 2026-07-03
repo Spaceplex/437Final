@@ -46,7 +46,7 @@
               {[
                 { icon:"🎬", label:"Entertainment", dest:"entertain" },
                 { icon:"✈️", label:"Flight Info", dest:"flightInfo" },
-                { icon:"🛍", label:"Shop & Food"   },
+                { icon:"🛍", label:"Shop & Food", dest:"shopping"   },
                 { icon:"❓", label:"Help Center", dest:"helpCenter" },
               ].map(({ icon, label, dest }) => (
                 // only navigate if a destination is defined for this tile
@@ -614,9 +614,12 @@
       if (dest == "flightInfo") {
         window.location.href = "flight_info.html";
       } 
-                                else if (dest == "entertain"){
+      else if (dest == "entertain"){
         window.location.href = "Entertainment/index.html";
-                                                  } else {
+      } 
+      else if (dest == "shopping"){
+        window.location.href = "Shopping/shopping.html";
+      } else {
           setPage(dest);
         }
       };
