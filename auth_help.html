@@ -44,7 +44,7 @@
             {/* 2x2 grid of main app sections — only Help Center is wired up here */}
             <div className="home-grid">
               {[
-                { icon:"🎬", label:"Entertainment" },
+                { icon:"🎬", label:"Entertainment", dest:"entertain" },
                 { icon:"✈️", label:"Flight Info", dest:"flightInfo" },
                 { icon:"🛍", label:"Shop & Food"   },
                 { icon:"❓", label:"Help Center", dest:"helpCenter" },
@@ -612,8 +612,11 @@
       // navigate is passed as a prop to child components so they can change the page
       const navigate = (dest) => {
       if (dest == "flightInfo") {
-        window.location.href = "flight_info.html";} 
-      else {
+        window.location.href = "flight_info.html";
+      } 
+                                else if (dest == "entertain"){
+        window.location.href = "Entertainment/index.html";
+                                                  } else {
           setPage(dest);
         }
       };
