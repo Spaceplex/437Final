@@ -369,3 +369,41 @@ body {
   background: url(assets/oxygenmask.gif);
   background-size: cover;
 }
+.modal-video-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.escape-route-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.escape-line {
+    fill: none;
+    stroke: #2ecc71;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 8, 4;
+    animation: routeFlow 2s linear infinite;
+}
+
+.escape-arrow {
+    fill: #2ecc71;
+}
+
+@keyframes routeFlow {
+    to {
+        stroke-dashoffset: -12;
+    }
+}
+
+

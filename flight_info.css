@@ -1,19 +1,31 @@
-/* Reset and Base Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* ==========================================================================
+   Reset and Core Base Styles (Synced with auth_help.css style guide)
+   ========================================================================== */
+*, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
 }
 
 :root {
   --sky-dark:   #0b1f3a;
   --sky-mid:    #1a3a5c;
   --sky-accent: #4d9de0;
+  --sky-light:  #e8f4fd;
+  --gold:       #f0b429;
+  --white:      #ffffff;
+  --gray-100:   #f5f7fa;
+  --gray-300:   #d1d9e0;
+  --gray-500:   #8896a5;
+  --gray-700:   #4a5568;
+  --radius:     12px;
+  --shadow:     0 4px 24px rgba(11,31,58,0.18);
+  --transition: 0.18s ease;
 }
 
 body {
-  background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,109 +33,130 @@ body {
     padding: 20px;
 }
 
-/* Container matching the aspect ratio of the seatback screen */
+/* ==========================================================================
+   Main Screen Frame Layout
+   ========================================================================== */
 .infotainment-container {
     width: 100%;
     max-width: 900px;
-    background-color: #ffffff;
-    border: 2px solid #333333;
-    padding: 25px;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    gap: 20px;
+    box-shadow: var(--shadow);
 }
 
-/* Header styling */
+/* Header Text Styles */
 .screen-header {
     position: relative;
+    text-align: left;
 }
 
 .system-label {
     display: block;
-    text-align: center;
-    font-size: 14px;
-    color: #666666;
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 0.25rem;
 }
 
 .screen-header h1 {
-    font-size: 28px;
-    color: #111111;
-    font-weight: 500;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--sky-dark);
 }
 
-/* Ticker & Utility Bar */
+/* ==========================================================================
+   Ticker Notification & Navigation Banner
+   ========================================================================== */
 .ticker-banner {
     display: flex;
     align-items: center;
-    border: 1px solid #999999;
-    background-color: #f9f9f9;
-    height: 45px;
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    height: 54px;
+    overflow: hidden;
 }
 
 .ticker-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 1.25rem;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .ticker-label {
-    font-weight: bold;
-    font-size: 13px;
-    margin-right: 6px;
-    color: #222222;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-right: 8px;
+    color: var(--sky-dark);
 }
 
 .ticker-text {
-    font-size: 14px;
-    color: #333333;
+    font-size: 0.95rem;
+    color: var(--gray-700);
+    font-weight: 500;
 }
 
+/* Announcement Trigger Button Style */
 .safety-btn {
-    width: 45px;
     height: 100%;
+    padding: 0 1.5rem;
     border: none;
-    border-left: 1px solid #999999;
-    border-right: 1px solid #999999;
-    background-color: #e9e9e9;
+    border-left: 1px solid var(--gray-300);
+    border-right: 1px solid var(--gray-300);
+    background-color: var(--sky-light);
+    color: var(--sky-mid);
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: var(--transition);
     display: flex;
-    justify-content: center;
     align-items: center;
-    transition: background-color 0.2s;
+    justify-content: center;
 }
 
 .safety-btn:hover {
-    background-color: #dddddd;
-}
-
-.star-icon {
-    font-size: 20px;
-    color: #444444;
+    background-color: var(--sky-accent);
+    color: var(--white);
 }
 
 .weather-display {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 0 15px;
-    font-size: 15px;
-    color: #333333;
+    padding: 0 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--sky-dark);
 }
 
-/* Map Canvas Container */
+/* Map */
 .map-container {
     flex: 1;
-    min-height: 350px;
-    background-color: #d4eaf7; /* Soft light blue for ocean background */
-    border: 1px solid #999999;
+    min-height: 450px;
+    background-color: #d4eaf7; /* Retained soft blue horizon color */
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
     position: relative;
     padding: 0;
     overflow: hidden;
+}
+
+.map-wrapper, .map-bg-graphic, .flight-path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .map-bg-graphic {
@@ -132,111 +165,93 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(assets/map.png);
-    background-size: cover;
-    opacity: 0.6;
+    
+    background-image: url('assets/map.png');
+    background-position: center center;
+    background-size: cover; 
+    background-repeat: no-repeat;
+    opacity: 1; 
 }
 
 .bg-label {
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #9ab0a6;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--gray-500);
+    font-weight: 700;
 }
 
-.flight-path-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-}
-
+/* ==========================================================================
+   SVG Flight Track & Vector Assets
+   ========================================================================== */
 .route-line {
     fill: none;
-    stroke: #777777;
+    stroke: var(--gray-500);
     stroke-width: 3;
     stroke-linecap: round;
-    stroke-dasharray: 6, 6; /* Creates the clean dashed flight path look */
+    stroke-dasharray: 6, 6;
 }
 
 .flown-line {
     fill: none;
-    stroke: #0066cc; /* Solid blue showing where the plane has already gone */
+    stroke: var(--sky-accent);
     stroke-width: 3;
     stroke-linecap: round;
-    stroke-dasharray: 800; 
-    stroke-dashoffset: 450; /* Adjust this value to dynamically show progress */
 }
 
 .waypoint {
-    fill: #ffffff;
-    stroke: #333333;
+    fill: var(--white);
+    stroke: var(--sky-dark);
     stroke-width: 2;
 }
 
-/* Positioning and animating the plane along the curve */
 .plane-marker {
-    /* Keep these so rotation center stays pinpointed on the fuselage */
     transform-box: fill-box;
     transform-origin: center;
-    
-    /* REMOVE the hardcoded transform line from here so it doesn't fight the JS */
 }
 
 .plane-icon {
-    fill: #d11a2a; /* Red plane marker to stand out sharply against the layout */
-    stroke: #ffffff;
-    stroke-width: 1;
+    fill: var(--gold); /* Swapped red marker to matching dashboard gold accent */
+    stroke: var(--sky-dark);
+    stroke-width: 1.5;
 }
 
-.map-placeholder-text {
-    font-size: 18px;
-    color: #555555;
-    text-align: center;
-}
-
-/* Telemetry Footer Grid Layout */
+/* ==========================================================================
+   Telemetry Footer Metrics Panel
+   ========================================================================== */
 .telemetry-footer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 20px;
     padding-top: 10px;
-    font-size: 13px;
-    color: #444444;
-    align-items: end;
+    border-top: 1px solid var(--gray-100);
+    align-items: start;
 }
 
 .data-block {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: var(--gray-700);
 }
 
-/* Center-aligned additions for altitude/speed */
+.data-block strong {
+    color: var(--sky-dark);
+    font-weight: 600;
+}
+
+/* Center Block Separators */
 .stats-block {
     text-align: center;
-    justify-content: center;
-    font-size: 14px;
-    border-left: 1px dashed #cccccc;
-    border-right: 1px dashed #cccccc;
-    height: 100%;
+    border-left: 1px solid var(--gray-300);
+    border-right: 1px solid var(--gray-300);
+    padding: 0 10px;
 }
 
-/* Right-aligned coordinates block */
+/* Coordinate string alignment */
 .coords-block {
-    flex-direction: row;
-    justify-content: flex-end;
-    font-size: 16px;
-    color: #555555;
-}
-
-.divider {
-    color: #aaaaaa;
-    margin: 0 5px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--gray-500);
+    font-family: monospace; /* Kept clean readouts for data */
 }

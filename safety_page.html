@@ -36,59 +36,82 @@
         <section class="map-panel">
           <div class="exit-indicator left-exit">Exit</div>
 
-          <div class="cabin-map">
-            <div class="cabin-row">
-              <div class="seat-group left-seats">
-                <div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div>
+          <!-- Relative coordinate boundary container -->
+          <div class="evacuation-path-container" style="position: relative;">
+
+            <!-- Vector Overlay Layer mapping coordinates over the grid grid box -->
+            <svg class="escape-route-svg" viewBox="0 0 240 230" xmlns="http://www.w3.org/2000/svg">
+              <!-- Starts inside the star seat (Row 6, left), moves right to the center aisle, goes up to row 5, then shoots out left to the exit -->
+              <path d="M 28,154 L 120,154 L 120,120 L -35,120" class="escape-line" />
+              <polygon points="-35,115 -47,120 -35,125" class="escape-arrow" />
+            </svg>
+
+            <div class="cabin-map">
+              <!-- Row 1 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats">
+                  <div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div>
+                </div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats">
+                  <div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div>
+                </div>
               </div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats">
-                <div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div>
+
+              <!-- Row 2 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 4 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 5: Emergency Exit Row Layer -->
+              <div class="cabin-row exit-row-indicators">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat exit-arrow-left">3</div></div>
+                <div class="aisle-spacer">AISLE</div>
+                <div class="seat-group right-seats"><div class="seat exit-arrow-right">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 6: User Location Row Layer -->
+              <div class="cabin-row user-row">
+                <div class="seat-group left-seats">
+                  <div class="seat user-seat" style="color: #f0b429;">★<span class="user-label">You are here</span></div>
+                  <div class="seat">2</div>
+                  <div class="seat standard-aisle">3</div>
+                </div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 7 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
+              </div>
+
+              <!-- Row 8 -->
+              <div class="cabin-row">
+                <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
+                <div class="aisle-spacer"></div>
+                <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
               </div>
             </div>
 
-            <div class="cabin-row">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-            <div class="cabin-row">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-            <div class="cabin-row">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-
-            <div class="cabin-row exit-row-indicators">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat exit-arrow-left">3</div></div>
-              <div class="aisle-spacer">AISLE</div>
-              <div class="seat-group right-seats"><div class="seat exit-arrow-right">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-
-            <div class="cabin-row user-row">
-              <div class="seat-group left-seats">
-                <div class="seat user-seat">⭐<span class="user-label">You are here</span></div>
-                <div class="seat">2</div>
-                <div class="seat standard-aisle">3</div>
-              </div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-
-            <div class="cabin-row">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
-            <div class="cabin-row">
-              <div class="seat-group left-seats"><div class="seat">1</div><div class="seat">2</div><div class="seat standard-aisle">3</div></div>
-              <div class="aisle-spacer"></div>
-              <div class="seat-group right-seats"><div class="seat standard-aisle">3</div><div class="seat">2</div><div class="seat">1</div></div>
-            </div>
           </div>
 
           <div class="exit-indicator right-exit">Exit</div>
@@ -102,20 +125,20 @@
           </div>
         </aside>
 
-      </div> </div> <div id="safetyModal" class="modal-overlay" onclick="closeModal()">
+      </div> 
+
+    </div> 
+    <div id="safetyModal" class="modal-overlay" onclick="closeModal()">
       <div class="modal-content" onclick="event.stopPropagation()">
         <div class="modal-body-layout">
-          
           <div class="modal-text-card">
             <h3>Safety Information:</h3>
-            <p>If there is change in cabin pressure, masks will drop automatically. Pull the mask tightly. Secure your mask before assisting</p>
+            <p>Select a topic to review safety procedures.</p>
             <div class="tap-hint">*tap anywhere to continue*</div>
           </div>
-          
           <div class="modal-video-card">
-            <img src="assets/oxygenmask.gif" alt="">
+            <img id="safetyModalImg" src="assets/oxygenmask.gif" alt="Safety Tutorial Asset">
           </div>
-          
         </div>
       </div>
     </div>
