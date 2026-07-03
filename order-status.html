@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food/Beverage Ordering Status</title>
+  <link rel="stylesheet" href="order-pages.css" />
+</head>
+<body>
+
+  <main class="os-screen">
+    <section class="os-card">
+
+      <!-- Header -->
+      <header class="os-header">
+        <span class="os-airline-logo">SKYWAY AIR</span>
+        <h1 class="os-title">Food/Beverage Ordering Status</h1>
+        <p class="os-subtitle">Track the current progress of your placed order.</p>
+      </header>
+
+      <!-- Main content -->
+      <section class="os-content">
+
+        <!-- Left column -->
+        <aside class="os-order-panel">
+          <div class="os-order-box">
+            <p class="os-order-number">001</p>
+            <p class="os-order-item">1x Chicken Sandwich</p>
+            <p class="os-order-item">1x Draft Beer</p>
+          </div>
+
+          <button class="os-return-btn" type="button">
+            ← Return
+          </button>
+        </aside>
+
+        <!-- Right column -->
+        <section class="os-status-panel">
+
+          <div class="os-time-box">
+            <p><strong>Time placed:</strong> 1:58 PM</p>
+            <p><strong>Time elapsed:</strong> 01:23</p>
+          </div>
+
+          <div class="os-current-status">
+            <span class="os-status-label">Currently</span>
+            <span class="os-status-pill">Cooking</span>
+          </div>
+
+          <!-- Progress tracker -->
+          <div class="os-progress">
+
+            <div class="os-step os-step-complete">
+              <div class="os-circle"></div>
+              <p>Order placed</p>
+            </div>
+
+            <div class="os-line os-line-complete"></div>
+
+            <div class="os-step os-step-active">
+              <div class="os-circle"></div>
+              <p>Cooking</p>
+            </div>
+
+            <div class="os-line"></div>
+
+            <div class="os-step">
+              <div class="os-square"></div>
+              <p>Arriving!</p>
+            </div>
+
+          </div>
+
+        </section>
+
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>

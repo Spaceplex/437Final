@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Checkout</title>
+  <link rel="stylesheet" href="order-pages.css" />
+</head>
+<body>
+
+  <main class="oc-screen">
+    <section class="oc-card">
+
+      <!-- Header -->
+      <header class="oc-header">
+        <span class="oc-airline-logo">SKYWAY AIR</span>
+        <h1 class="oc-title">Order Checkout Page</h1>
+        <p class="oc-subtitle">Review your food and beverage order and complete payment.</p>
+      </header>
+
+      <!-- Main content -->
+      <section class="oc-content">
+
+        <!-- Left: Items -->
+        <aside class="oc-items-panel">
+          <h2 class="oc-section-title">Items</h2>
+
+          <div class="oc-item-list">
+
+            <div class="oc-item-row">
+              <button class="oc-remove-btn" aria-label="Remove Chicken Sandwich">×</button>
+              <div class="oc-item-text">
+                <p class="oc-item-name">1x Chicken Sandwich</p>
+                <p class="oc-item-note">Fresh hot meal</p>
+              </div>
+              <span class="oc-item-price">$9.99</span>
+            </div>
+
+            <div class="oc-item-row">
+              <button class="oc-remove-btn" aria-label="Remove Draft Beer">×</button>
+              <div class="oc-item-text">
+                <p class="oc-item-name">1x Draft Beer</p>
+                <p class="oc-item-note">Beverage</p>
+              </div>
+              <span class="oc-item-price">$6.50</span>
+            </div>
+
+          </div>
+
+          <div class="oc-summary-box">
+            <div class="oc-summary-row">
+              <span>Subtotal</span>
+              <strong>$16.49</strong>
+            </div>
+            <div class="oc-summary-row">
+              <span>Tax</span>
+              <strong>$1.15</strong>
+            </div>
+            <div class="oc-summary-row oc-summary-total">
+              <span>Total</span>
+              <strong>$17.64</strong>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right: Payment form -->
+        <section class="oc-form-panel">
+
+          <!-- Card details -->
+          <section class="oc-form-section">
+            <h2 class="oc-section-title">Payment Information</h2>
+
+            <div class="oc-form-grid">
+
+              <label class="oc-field">
+                <span class="oc-label">Name on Card</span>
+                <input class="oc-input" type="text" placeholder="Passenger Name" />
+              </label>
+
+              <label class="oc-field">
+                <span class="oc-label">Card Number</span>
+                <input class="oc-input" type="text" placeholder="####-####-####-####" />
+              </label>
+
+              <div class="oc-inline-fields">
+                <label class="oc-field">
+                  <span class="oc-label">Exp</span>
+                  <input class="oc-input" type="text" placeholder="MM/YY" />
+                </label>
+
+                <label class="oc-field">
+                  <span class="oc-label">CSV</span>
+                  <input class="oc-input" type="text" placeholder="###" />
+                </label>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Billing -->
+          <section class="oc-form-section">
+            <h2 class="oc-section-title">Billing</h2>
+
+            <div class="oc-billing-grid">
+
+              <label class="oc-field">
+                <span class="oc-label">Country</span>
+                <input class="oc-input" type="text" placeholder="United States" />
+              </label>
+
+              <label class="oc-field">
+                <span class="oc-label">Address</span>
+                <input class="oc-input" type="text" placeholder="123 Main St" />
+              </label>
+
+              <label class="oc-field">
+                <span class="oc-label">City</span>
+                <input class="oc-input" type="text" placeholder="Baltimore" />
+              </label>
+
+              <label class="oc-field">
+                <span class="oc-label">Zip Code</span>
+                <input class="oc-input" type="text" placeholder="#####"/>
+              </label>
+
+              <label class="oc-field oc-state-field">
+                <span class="oc-label">State</span>
+                <select class="oc-input">
+                  <option>–</option>
+                  <option>MD</option>
+                  <option>VA</option>
+                  <option>DC</option>
+                  <option>PA</option>
+                  <option>DE</option>
+                </select>
+              </label>
+
+            </div>
+          </section>
+
+          <!-- Actions -->
+          <div class="oc-actions">
+            <button class="oc-btn oc-btn-ghost" type="button">Return to Menu</button>
+            <button class="oc-btn oc-btn-primary" type="button">Purchase</button>
+          </div>
+
+        </section>
+
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>

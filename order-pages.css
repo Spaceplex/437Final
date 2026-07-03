@@ -1,0 +1,502 @@
+/* =========================================================
+   1. Global Reset
+   ========================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   2. Theme Variables
+   Mirrored from your project aesthetic
+   ========================================================= */
+
+:root {
+  --sky-dark:   #0b1f3a;
+  --sky-mid:    #1a3a5c;
+  --sky-accent: #4d9de0;
+  --sky-light:  #e8f4fd;
+  --gold:       #f0b429;
+  --white:      #ffffff;
+  --gray-100:   #f5f7fa;
+  --gray-300:   #d1d9e0;
+  --gray-500:   #8896a5;
+  --gray-700:   #4a5568;
+  --danger:     #e53e3e;
+  --success:    #38a169;
+  --pending:    #dd6b20;
+  --radius:     12px;
+  --shadow:     0 4px 24px rgba(11,31,58,0.18);
+  --transition: 0.18s ease;
+}
+
+
+/* =========================================================
+   3. Body
+   ========================================================= */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: var(--sky-dark);
+}
+
+
+/* =========================================================
+   4. Shared Card Layout
+   ========================================================= */
+
+.oc-screen,
+.os-screen {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.oc-card,
+.os-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.oc-header,
+.os-header {
+  background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid));
+  color: var(--white);
+  padding: 1.5rem;
+}
+
+.oc-airline-logo,
+.os-airline-logo {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  opacity: 0.75;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.oc-title,
+.os-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.oc-subtitle,
+.os-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   5. Shared Section Title
+   ========================================================= */
+
+.oc-section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--sky-dark);
+  margin-bottom: 1rem;
+}
+
+
+/* =========================================================
+   6. ORDER CHECKOUT PAGE
+   ========================================================= */
+
+.oc-content {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--gray-100);
+}
+
+.oc-items-panel,
+.oc-form-panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+}
+
+.oc-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.oc-item-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.85rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 10px;
+  background: var(--gray-100);
+}
+
+.oc-remove-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gray-500);
+  background: var(--white);
+  color: var(--danger);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.oc-remove-btn:hover {
+  background: #fff5f5;
+}
+
+.oc-item-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--sky-dark);
+}
+
+.oc-item-note {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.oc-item-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sky-dark);
+}
+
+.oc-summary-box {
+  margin-top: 1.25rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.oc-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+}
+
+.oc-summary-row:last-child {
+  border-bottom: none;
+}
+
+.oc-summary-total {
+  background: var(--sky-light);
+  color: var(--sky-dark);
+  font-weight: 700;
+}
+
+.oc-form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.oc-form-section {
+  border: 1.5px solid var(--gray-300);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.oc-form-grid,
+.oc-billing-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.oc-inline-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.oc-billing-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.oc-state-field {
+  max-width: 220px;
+}
+
+.oc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.oc-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.oc-input {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--sky-dark);
+  background: var(--white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.oc-input:focus {
+  outline: none;
+  border-color: var(--sky-accent);
+  box-shadow: 0 0 0 3px rgba(77, 157, 224, 0.15);
+}
+
+.oc-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.oc-btn {
+  padding: 0.9rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.oc-btn:hover {
+  opacity: 0.9;
+}
+
+.oc-btn:active {
+  transform: scale(0.98);
+}
+
+.oc-btn-primary {
+  background: var(--sky-accent);
+  color: var(--white);
+}
+
+.oc-btn-ghost {
+  background: transparent;
+  color: var(--sky-mid);
+  border: 2px solid var(--gray-300);
+}
+
+
+/* =========================================================
+   7. ORDER STATUS PAGE
+   ========================================================= */
+
+.os-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--gray-100);
+}
+
+.os-order-panel,
+.os-status-panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.os-order-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.os-order-box {
+  flex: 1;
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1.5px solid var(--gray-300);
+}
+
+.os-order-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sky-dark);
+  margin-bottom: 1rem;
+}
+
+.os-order-item {
+  font-size: 1.2rem;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.os-return-btn {
+  border: none;
+  background: var(--sky-light);
+  color: var(--sky-dark);
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.os-return-btn:hover {
+  background: #d8ecfb;
+}
+
+.os-status-panel {
+  padding: 1.75rem;
+}
+
+.os-time-box {
+  font-size: 1.6rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.os-current-status {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.os-status-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.os-status-pill {
+  background: #fff3cd;
+  color: #856404;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.os-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.os-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 110px;
+  text-align: center;
+}
+
+.os-circle,
+.os-square {
+  width: 62px;
+  height: 62px;
+  border: 3px solid var(--gray-500);
+  background: var(--white);
+}
+
+.os-circle {
+  border-radius: 50%;
+}
+
+.os-square {
+  border-radius: 10px;
+}
+
+.os-line {
+  flex: 1;
+  height: 4px;
+  background: var(--gray-300);
+  border-radius: 99px;
+}
+
+.os-line-complete {
+  background: var(--sky-accent);
+}
+
+.os-step p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.os-step-complete .os-circle {
+  background: var(--sky-light);
+  border-color: var(--sky-accent);
+}
+
+.os-step-active .os-circle {
+  background: var(--sky-accent);
+  border-color: var(--sky-accent);
+  box-shadow: 0 0 0 8px rgba(77, 157, 224, 0.18);
+}
+
+
+/* =========================================================
+   8. Responsive Layout
+   ========================================================= */
+
+@media (max-width: 980px) {
+  .oc-content,
+  .os-content {
+    grid-template-columns: 1fr;
+  }
+
+  .oc-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .oc-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .oc-title,
+  .os-title {
+    font-size: 1.6rem;
+  }
+
+  .oc-inline-fields,
+  .oc-billing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .os-progress {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .os-line {
+    width: 4px;
+    height: 36px;
+    align-self: center;
+  }
+}

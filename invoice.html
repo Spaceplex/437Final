@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Makes the layout work correctly on phones, tablets, and laptops -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Invoices</title>
+
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="invoice.css" />
+</head>
+
+<body>
+
+  <!-- Main invoice screen -->
+  <main class="invoice-screen">
+
+    <!-- Page title -->
+    <header class="invoice-header">
+      <h1>Invoices</h1>
+    </header>
+
+    <!-- Main invoice content area -->
+    <section class="invoice-content">
+
+      <!-- Left side: invoice item table -->
+      <section class="items-area" aria-label="Invoice item list">
+
+        <table class="invoice-table">
+
+          <thead>
+            <tr>
+              <th class="item-name">Item Name</th>
+              <th>Quantity</th>
+              <th>Unit<br />Price</th>
+              <th>Total<br />Amount<br />Cost</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Chicken Sandwich</td>
+              <td>1</td>
+              <td>$9.99</td>
+              <td>$9.99</td>
+            </tr>
+
+            <tr>
+              <td>Bottled Water</td>
+              <td>1</td>
+              <td>$2.50</td>
+              <td>$2.50</td>
+            </tr>
+
+            <tr>
+              <td>In-Flight Phone Call</td>
+              <td>1</td>
+              <td>$5.00</td>
+              <td>$5.00</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </section>
+
+      <!-- Right side: passenger, invoice, and payment information -->
+      <aside class="invoice-side-panel" aria-label="Invoice details">
+
+        <!-- Bill to / Invoice number box -->
+        <section class="bill-box">
+
+          <div class="bill-heading">BILL TO:</div>
+          <div class="bill-heading">INVOICE NO.</div>
+
+          <div class="bill-value">Passenger Name</div>
+          <div class="bill-value">INV-0000</div>
+
+        </section>
+
+        <!-- Credit card payment confirmation -->
+        <section class="payment-box">
+          <p class="payment-label">Payment Status</p>
+          <h2>Paid by Credit Card</h2>
+          <p>Card ending in 4242</p>
+        </section>
+
+        <!-- Subtotal box -->
+        <section class="subtotal-box">
+
+          <div class="subtotal-label">SUBTOTAL:</div>
+          <div class="subtotal-value">$17.49</div>
+
+        </section>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

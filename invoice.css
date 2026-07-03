@@ -1,0 +1,415 @@
+/* =========================================================
+   1. Global Reset
+   Matches the reset style used in auth_help.css
+   ========================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   2. Theme Variables
+   Same design system from auth_help.css
+   ========================================================= */
+
+:root {
+  --sky-dark:   #0b1f3a;
+  --sky-mid:    #1a3a5c;
+  --sky-accent: #4d9de0;
+  --sky-light:  #e8f4fd;
+  --gold:       #f0b429;
+  --white:      #ffffff;
+  --gray-100:   #f5f7fa;
+  --gray-300:   #d1d9e0;
+  --gray-500:   #8896a5;
+  --gray-700:   #4a5568;
+  --danger:     #e53e3e;
+  --success:    #38a169;
+  --pending:    #dd6b20;
+  --radius:     12px;
+  --shadow:     0 4px 24px rgba(11,31,58,0.18);
+  --transition: 0.18s ease;
+}
+
+
+/* =========================================================
+   3. Page Layout
+   Centers the invoice card over the dark airline background
+   ========================================================= */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky-mid) 100%);
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+  color: var(--sky-dark);
+}
+
+
+/* =========================================================
+   4. Main Invoice Card
+   Mirrors the white rounded card style from the other screens
+   ========================================================= */
+
+.invoice-screen {
+  width: 100%;
+  max-width: 1050px;
+
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   5. Header
+   Uses the same dark gradient header aesthetic
+   ========================================================= */
+
+.invoice-header {
+  background: linear-gradient(135deg, var(--sky-dark), var(--sky-mid));
+  color: var(--white);
+
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.invoice-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+
+/* =========================================================
+   6. Main Content Area
+   Left side: table
+   Right side: invoice details
+   ========================================================= */
+
+.invoice-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+
+  padding: 1.5rem;
+  background: var(--gray-100);
+}
+
+
+/* =========================================================
+   7. Invoice Table
+   Keeps the prototype structure but uses softer project styling
+   ========================================================= */
+
+.items-area {
+  overflow-x: auto;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.invoice-table {
+  width: 100%;
+  min-width: 640px;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.invoice-table th {
+  background: var(--sky-light);
+  color: var(--sky-dark);
+
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+
+  padding: 1rem;
+  border-bottom: 1.5px solid var(--gray-300);
+}
+
+.invoice-table td {
+  color: var(--gray-700);
+  font-size: 1rem;
+
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.invoice-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.invoice-table tbody tr:hover {
+  background: var(--sky-light);
+}
+
+.invoice-table .item-name {
+  width: 50%;
+}
+
+
+/* =========================================================
+   8. Right Side Panel
+   Stacks bill info, payment status, and subtotal
+   ========================================================= */
+
+.invoice-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+/* =========================================================
+   9. Bill Box
+   Styled like a clean information card
+   ========================================================= */
+
+.bill-box {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+
+  background: var(--white);
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+}
+
+.bill-heading {
+  background: var(--sky-light);
+  color: var(--sky-dark);
+
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.bill-heading:first-child,
+.bill-value:first-of-type {
+  border-right: 1px solid var(--gray-300);
+}
+
+.bill-value {
+  color: var(--sky-dark);
+  font-size: 1rem;
+  font-weight: 600;
+
+  padding: 1rem;
+}
+
+
+/* =========================================================
+   10. Payment Box
+   Shows that the invoice was paid by credit card
+   ========================================================= */
+
+.payment-box {
+  background: var(--white);
+  border-left: 5px solid var(--success);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  padding: 1rem;
+}
+
+.payment-label {
+  color: var(--success);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  margin-bottom: 0.35rem;
+}
+
+.payment-box h2 {
+  color: var(--sky-dark);
+  font-size: 1.15rem;
+  font-weight: 700;
+
+  margin-bottom: 0.25rem;
+}
+
+.payment-box p {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   11. Subtotal Box
+   Similar to the invoice summary rows from auth_help.css
+   ========================================================= */
+
+.subtotal-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  background: var(--white);
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.subtotal-label {
+  background: var(--sky-light);
+  color: var(--sky-dark);
+
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  padding: 1rem;
+  border-right: 1px solid var(--gray-300);
+}
+
+.subtotal-value {
+  color: var(--gold);
+  font-size: 1rem;
+  font-weight: 800;
+
+  padding: 1rem;
+}
+
+
+/* =========================================================
+   12. Optional Action Buttons
+   Use these only if your HTML includes buttons
+   Example: Back to Menu, Download Invoice, Return Home
+   ========================================================= */
+
+.invoice-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  padding: 1rem 1.5rem 1.5rem;
+  background: var(--white);
+}
+
+.invoice-btn {
+  width: 100%;
+  padding: 0.85rem;
+
+  border-radius: 8px;
+  border: none;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.invoice-btn:hover {
+  opacity: 0.88;
+}
+
+.invoice-btn:active {
+  transform: scale(0.98);
+}
+
+.invoice-btn-primary {
+  background: var(--sky-accent);
+  color: var(--white);
+}
+
+.invoice-btn-ghost {
+  background: transparent;
+  color: var(--sky-mid);
+  border: 2px solid var(--gray-300);
+}
+
+.invoice-btn-ghost:hover {
+  border-color: var(--sky-accent);
+  color: var(--sky-accent);
+}
+
+
+/* =========================================================
+   13. Responsive Layout
+   Makes the invoice usable on tablets and phones
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .invoice-content {
+    grid-template-columns: 1fr;
+  }
+
+  .invoice-side-panel {
+    gap: 1rem;
+  }
+
+  .subtotal-box {
+    margin-top: 0;
+  }
+}
+
+
+/* =========================================================
+   14. Small Phone Layout
+   Simplifies the bill and subtotal boxes
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+  body {
+    padding: 0.75rem;
+  }
+
+  .invoice-header {
+    padding: 1.4rem 1rem;
+  }
+
+  .invoice-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .invoice-content {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .bill-box,
+  .subtotal-box {
+    grid-template-columns: 1fr;
+  }
+
+  .bill-heading:first-child,
+  .bill-value:first-of-type,
+  .subtotal-label {
+    border-right: none;
+  }
+
+  .bill-heading:nth-child(2) {
+    border-top: 1px solid var(--gray-300);
+  }
+
+  .bill-value {
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .subtotal-value {
+    border-top: 1px solid var(--gray-300);
+  }
+}
