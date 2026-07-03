@@ -1,15 +1,22 @@
-// Quick snippet to position any element smoothly along an SVG curve
-const path = document.getElementById('route');
-const totalLength = path.getTotalLength();
-
-// Set progress anywhere from 0 (Origin) to 1 (Destination)
-function updatePlanePosition(progress) {
-    const point = path.getPointAtLength(totalLength * progress);
+window.addEventListener('DOMContentLoaded', () => {
+    const path = document.getElementById('route');
     const plane = document.querySelector('.plane-marker');
     
-    // Set position coordinates dynamically
-    plane.setAttribute('transform', `translate(${point.x}, ${point.y})`);
-}
+    if (path && plane) {
+        const totalLength = path.getTotalLength();
+        
+        const progress = 0.72; 
+        
+        // Grab coordinate snapshots slightly apart to compute the tangent angle
+        const point = path.getPointAtLength(totalLength * progress);
+        const nextPoint = path.getPointAtLength((totalLength * progress) + 1);
+        
+        // Compute structural rotation angle in degrees
+        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+        
+        // Apply position and accurate trajectory alignment dynamically
+        plane.setAttribute('transform', `translate(${point.x}, ${point.y}) rotate(${angle})`);
+    }
+});
 
-// Example: Places plane exactly halfway through the curve route
-updatePlanePosition(0.5);
+

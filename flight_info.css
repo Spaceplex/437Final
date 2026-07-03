@@ -182,12 +182,11 @@ body {
 
 /* Positioning and animating the plane along the curve */
 .plane-marker {
-    /* Using transform-box and transform-origin ensures rotation happens around the plane center */
+    /* Keep these so rotation center stays pinpointed on the fuselage */
     transform-box: fill-box;
     transform-origin: center;
     
-    /* Manually positioning it along our quadratic bezier curve (Q 400,50) for prototyping */
-    transform: translate(320px, 115px) rotate(15deg); 
+    /* REMOVE the hardcoded transform line from here so it doesn't fight the JS */
 }
 
 .plane-icon {
